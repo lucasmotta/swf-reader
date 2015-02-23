@@ -96,18 +96,19 @@ function readSWFBuff(buff, compressed_buff, next) {
     tag = {
       header : tagHeader
     };
-    /*switch( tagHeader.code ) {
-      case SWFTags.FileAttributes : 
+    switch( tagHeader.code ) {
+      case SWFTags.SetBackgroundColor :
+        swf.backgroundColor = "#" + (buff.readUInt8()*65536 + buff.readUInt8()*256 + buff.readUInt8()).toString(16)
         break;
       default:
-        buff.pointer += tag.length;
+        buff.pointer += tagHeader.length;
         break;
-    }*/
-    buff.pointer += tagHeader.length;
-    tags.push(tag); 
+    }
+    // buff.pointer += tagHeader.length;
+    // tags.push(tag);
   }
 
-  swf.tags = tags;
+  // swf.tags = tags;
 
   next( null, swf );
 } 
